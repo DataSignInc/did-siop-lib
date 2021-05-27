@@ -6,7 +6,7 @@
   "browser": "dist/browser/did-siop.js",
   "types": "dist/types/index.d.ts",
   "scripts": {
-    "node-build": "tsc --declarationDir ./dist/types",
+    "node-build": "rm -rf ./dist/node ./dist/types && tsc --declarationDir ./dist/types",
     "compile": "babel dist/browser/did-siop.js --out-file dist/browser/did-siop.compiled.js --presets=@babel/preset-env",
     "minify": "uglifyjs --compress --mangle --output dist/browser/did-siop.min.js -- dist/browser/did-siop.compiled.js",
     "browser-build": "browserify src/index.ts -p [ tsify tsconfig.json ] --s DID_SIOP > dist/browser/did-siop.js && npm run-script compile && npm run-script minify",
