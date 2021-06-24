@@ -35290,7 +35290,7 @@ module.exports={
   "_args": [
     [
       "elliptic@6.5.3",
-      "E:\\GitHub\\did-siop-lib"
+      "/home/somay/datasign/bunsin/did-siop-lib"
     ]
   ],
   "_from": "elliptic@6.5.3",
@@ -35317,7 +35317,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz",
   "_spec": "6.5.3",
-  "_where": "E:\\GitHub\\did-siop-lib",
+  "_where": "/home/somay/datasign/bunsin/did-siop-lib",
   "author": {
     "name": "Fedor Indutny",
     "email": "fedor@indutny.com"
@@ -35430,7 +35430,7 @@ module.exports = {
   checkAddressChecksum
 }
 
-},{"keccak256":564}],522:[function(require,module,exports){
+},{"keccak256":570}],522:[function(require,module,exports){
 (function (Buffer){
 const { publicKeyConvert } = require('secp256k1')
 const keccak256 = require('keccak256')
@@ -35453,7 +35453,7 @@ function publicKeyToAddress (publicKey) {
 module.exports = publicKeyToAddress
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":115,"ethereum-checksum-address":523,"keccak256":564,"secp256k1":646}],523:[function(require,module,exports){
+},{"buffer":115,"ethereum-checksum-address":523,"keccak256":570,"secp256k1":646}],523:[function(require,module,exports){
 const keccak256 = require('keccak256')
 
 function toChecksumAddress (address, chainId = null) {
@@ -35500,7 +35500,7 @@ module.exports = {
   checkAddressChecksum
 }
 
-},{"keccak256":564}],524:[function(require,module,exports){
+},{"keccak256":570}],524:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 
@@ -43863,105 +43863,10 @@ module.exports = Array.isArray || function (arr) {
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":617}],564:[function(require,module,exports){
-(function (Buffer){
-'use strict';
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var createKeccakHash = require('keccak');
-var BN = require('bn.js');
-
-module.exports = function (a) {
-  a = toBuffer(a);
-
-  return createKeccakHash('keccak256').update(a).digest();
-};
-
-function toBuffer(v) {
-  if (!Buffer.isBuffer(v)) {
-    if (Array.isArray(v)) {
-      v = Buffer.from(v);
-    } else if (typeof v === 'string') {
-      if (isHexString(v)) {
-        v = Buffer.from(padToEven(stripHexPrefix(v)), 'hex');
-      } else {
-        v = Buffer.from(v);
-      }
-    } else if (typeof v === 'number') {
-      v = intToBuffer(v);
-    } else if (v === null || v === undefined) {
-      v = Buffer.allocUnsafe(0);
-    } else if (BN.isBN(v)) {
-      v = v.toArrayLike(Buffer);
-    } else if (v.toArray) {
-      // converts a BN to a Buffer
-      v = Buffer.from(v.toArray());
-    } else {
-      throw new Error('invalid type');
-    }
-  }
-  return v;
-}
-
-function isHexString(value, length) {
-  if (typeof value !== 'string' || !value.match(/^0x[0-9A-Fa-f]*$/)) {
-    return false;
-  }
-
-  if (length && value.length !== 2 + 2 * length) {
-    return false;
-  }
-
-  return true;
-}
-
-function padToEven(value) {
-  var a = value; // eslint-disable-line
-
-  if (typeof a !== 'string') {
-    throw new Error('while padding to even, value must be string, is currently ' + (typeof a === 'undefined' ? 'undefined' : _typeof(a)) + ', while padToEven.');
-  }
-
-  if (a.length % 2) {
-    a = '0' + a;
-  }
-
-  return a;
-}
-
-function stripHexPrefix(str) {
-  if (typeof str !== 'string') {
-    return str;
-  }
-
-  return isHexPrefixed(str) ? str.slice(2) : str;
-}
-
-function isHexPrefixed(str) {
-  if (typeof str !== 'string') {
-    throw new Error("value must be type 'string', is currently type " + (typeof str === 'undefined' ? 'undefined' : _typeof(str)) + ', while checking isHexPrefixed.');
-  }
-
-  return str.slice(0, 2) === '0x';
-}
-
-function intToBuffer(i) {
-  var hex = intToHex(i);
-
-  return Buffer.from(padToEven(hex.slice(2)), 'hex');
-}
-
-function intToHex(i) {
-  var hex = i.toString(16); // eslint-disable-line
-
-  return '0x' + hex;
-}
-}).call(this,require("buffer").Buffer)
-},{"bn.js":67,"buffer":115,"keccak":565}],565:[function(require,module,exports){
 'use strict'
 module.exports = require('./lib/api')(require('./lib/keccak'))
 
-},{"./lib/api":566,"./lib/keccak":570}],566:[function(require,module,exports){
+},{"./lib/api":565,"./lib/keccak":569}],565:[function(require,module,exports){
 'use strict'
 var createKeccak = require('./keccak')
 var createShake = require('./shake')
@@ -43991,7 +43896,7 @@ module.exports = function (KeccakState) {
   }
 }
 
-},{"./keccak":567,"./shake":568}],567:[function(require,module,exports){
+},{"./keccak":566,"./shake":567}],566:[function(require,module,exports){
 'use strict'
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('stream').Transform
@@ -44077,7 +43982,7 @@ module.exports = function (KeccakState) {
   return Keccak
 }
 
-},{"inherits":558,"safe-buffer":644,"stream":662}],568:[function(require,module,exports){
+},{"inherits":558,"safe-buffer":644,"stream":662}],567:[function(require,module,exports){
 'use strict'
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('stream').Transform
@@ -44154,7 +44059,7 @@ module.exports = function (KeccakState) {
   return Shake
 }
 
-},{"inherits":558,"safe-buffer":644,"stream":662}],569:[function(require,module,exports){
+},{"inherits":558,"safe-buffer":644,"stream":662}],568:[function(require,module,exports){
 'use strict'
 var P1600_ROUND_CONSTANTS = [1, 0, 32898, 0, 32906, 2147483648, 2147516416, 2147483648, 32907, 0, 2147483649, 0, 2147516545, 2147483648, 32777, 2147483648, 138, 0, 136, 0, 2147516425, 0, 2147483658, 0, 2147516555, 0, 139, 2147483648, 32905, 2147483648, 32771, 2147483648, 32770, 2147483648, 128, 2147483648, 32778, 0, 2147483658, 2147483648, 2147516545, 2147483648, 32896, 2147483648, 2147483649, 0, 2147516424, 2147483648]
 
@@ -44343,7 +44248,7 @@ exports.p1600 = function (s) {
   }
 }
 
-},{}],570:[function(require,module,exports){
+},{}],569:[function(require,module,exports){
 'use strict'
 var Buffer = require('safe-buffer').Buffer
 var keccakState = require('./keccak-state-unroll')
@@ -44415,7 +44320,102 @@ Keccak.prototype.copy = function (dest) {
 
 module.exports = Keccak
 
-},{"./keccak-state-unroll":569,"safe-buffer":644}],571:[function(require,module,exports){
+},{"./keccak-state-unroll":568,"safe-buffer":644}],570:[function(require,module,exports){
+(function (Buffer){
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var createKeccakHash = require('keccak');
+var BN = require('bn.js');
+
+module.exports = function (a) {
+  a = toBuffer(a);
+
+  return createKeccakHash('keccak256').update(a).digest();
+};
+
+function toBuffer(v) {
+  if (!Buffer.isBuffer(v)) {
+    if (Array.isArray(v)) {
+      v = Buffer.from(v);
+    } else if (typeof v === 'string') {
+      if (isHexString(v)) {
+        v = Buffer.from(padToEven(stripHexPrefix(v)), 'hex');
+      } else {
+        v = Buffer.from(v);
+      }
+    } else if (typeof v === 'number') {
+      v = intToBuffer(v);
+    } else if (v === null || v === undefined) {
+      v = Buffer.allocUnsafe(0);
+    } else if (BN.isBN(v)) {
+      v = v.toArrayLike(Buffer);
+    } else if (v.toArray) {
+      // converts a BN to a Buffer
+      v = Buffer.from(v.toArray());
+    } else {
+      throw new Error('invalid type');
+    }
+  }
+  return v;
+}
+
+function isHexString(value, length) {
+  if (typeof value !== 'string' || !value.match(/^0x[0-9A-Fa-f]*$/)) {
+    return false;
+  }
+
+  if (length && value.length !== 2 + 2 * length) {
+    return false;
+  }
+
+  return true;
+}
+
+function padToEven(value) {
+  var a = value; // eslint-disable-line
+
+  if (typeof a !== 'string') {
+    throw new Error('while padding to even, value must be string, is currently ' + (typeof a === 'undefined' ? 'undefined' : _typeof(a)) + ', while padToEven.');
+  }
+
+  if (a.length % 2) {
+    a = '0' + a;
+  }
+
+  return a;
+}
+
+function stripHexPrefix(str) {
+  if (typeof str !== 'string') {
+    return str;
+  }
+
+  return isHexPrefixed(str) ? str.slice(2) : str;
+}
+
+function isHexPrefixed(str) {
+  if (typeof str !== 'string') {
+    throw new Error("value must be type 'string', is currently type " + (typeof str === 'undefined' ? 'undefined' : _typeof(str)) + ', while checking isHexPrefixed.');
+  }
+
+  return str.slice(0, 2) === '0x';
+}
+
+function intToBuffer(i) {
+  var hex = intToHex(i);
+
+  return Buffer.from(padToEven(hex.slice(2)), 'hex');
+}
+
+function intToHex(i) {
+  var hex = i.toString(16); // eslint-disable-line
+
+  return '0x' + hex;
+}
+}).call(this,require("buffer").Buffer)
+},{"bn.js":67,"buffer":115,"keccak":564}],571:[function(require,module,exports){
 'use strict'
 var inherits = require('inherits')
 var HashBase = require('hash-base')
@@ -57497,6 +57497,11 @@ exports.ERROR_RESPONSES = {
     request_uri_not_supported: request_uri_not_supported,
     registration_not_supported: registration_not_supported,
 };
+/**
+ * @param {string} errorMessage - The message of the SIOPErrorResponse which needs to be base64url encoded
+ * @returns {string} - Base64url encoded SIOPErrorResponse
+ * @remarks This method is used to get the base64url encoded version of a specific SIOPErrorResponse.
+ */
 function getBase64URLEncodedError(errorMessage) {
     var error = exports.ERROR_RESPONSES[errorMessage];
     if (error) {
@@ -57511,6 +57516,12 @@ function getBase64URLEncodedError(errorMessage) {
     }
 }
 exports.getBase64URLEncodedError = getBase64URLEncodedError;
+/**
+ * @param {string} responseBase64Encoded - A base64url string which needs to be checked
+ * @returns {SIOPErrorResponse | undefined} - SIOPErrorResponse or undefined
+ * @remarks This method is used to check whether a given base64url encoded string is a SIOPErrorResponse.
+ * If successful it will return the decoded SIOPErrorResponse or otherwise, undefined.
+ */
 function checkErrorResponse(responseBase64Encoded) {
     try {
         var errorResponseDecoded = JSON.parse(base64url_1.default.decode(responseBase64Encoded));
@@ -57585,7 +57596,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var commons_1 = require("./commons");
 var key_extractors_1 = require("./key-extractors");
 var resolvers_1 = require("./resolvers");
+/**
+ * @classdesc A class to represent a Decentralized Identity.
+ * @property {DidDocument} doc - Decentralized Identity Document. Initialized with empty values in the constructor. Assigned later using resolve(did) method.
+ * @property {DidVerificationKey[]} KeySet - A list of verification keys listed in the did-doc. Initialied empty in the constructor. Filled later using extractAuthenticationKeys method.
+ */
 var Identity = /** @class */ (function () {
+    /**
+     * @constructor
+     */
     function Identity() {
         this.doc = {
             '@context': '',
@@ -57594,6 +57613,12 @@ var Identity = /** @class */ (function () {
         };
         this.keySet = [];
     }
+    /**
+     *
+     * @param {string} did - A Decentralized Identity to resolve
+     * @returns A promise which resolves to the id field of the related Decentralized Idenity Document (did-doc)
+     * @remarks The combinedResolver is used to resolve did-doc.
+     */
     Identity.prototype.resolve = function (did) {
         return __awaiter(this, void 0, void 0, function () {
             var result, err_1;
@@ -57623,9 +57648,24 @@ var Identity = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @returns true/false to indicate whether the Identity has a resolved did-doc or not
+     */
     Identity.prototype.isResolved = function () {
         return this.doc.id !== '';
     };
+    /**
+     *
+     * @param {DidVerificationKeyExtractor} [extractor] - The extractor to use when extracting keys. If not provided, uniExtractor is used.
+     * @returns An array of DidVerificationKey objects
+     * @remarks resolve(did) method must be called before calling this method. This method returns the value of keySet property. If keySet is
+     * empty then this method will extract cryptographic keys and related information from the 'authentication' field of did-doc and populate keySet property.
+     * https://www.w3.org/TR/did-core/#authentication
+     * 'authentication' field is an array and contains Verification Methods in following forms
+     *  - A full method which has 'id' and 'type' fields
+     *  - A string
+     *  - An object with 'type' field and references to 'publicKey' field of did-doc as an array.
+     */
     Identity.prototype.extractAuthenticationKeys = function (extractor) {
         if (!extractor)
             extractor = key_extractors_1.uniExtractor;
@@ -57691,9 +57731,18 @@ var Identity = /** @class */ (function () {
         }
         return this.keySet;
     };
+    /**
+     * @returns {DidDocument} The doc property.
+     */
     Identity.prototype.getDocument = function () {
         return this.doc;
     };
+    /**
+     *
+     * @param {DidDocument} doc
+     * @param {string} did - DID related to the doc param
+     * @remarks Can be used to set the doc property manually without resolving.
+     */
     Identity.prototype.setDocument = function (doc, did) {
         if (
         //doc['@context'] === 'https://w3id.org/did/v1' &&
@@ -57735,7 +57784,24 @@ var commons_1 = require("./commons");
 var globals_1 = require("../globals");
 var Utils_1 = require("../Utils");
 var toChecksumAddress = require('ethereum-checksum-address').toChecksumAddress;
+/**
+ * @classdesc Abstract class which defines the interface for classes used to extract key
+ * information from Verification Methods listed in DID Documents. https://www.w3.org/TR/did-spec-registries/#verification-method-types.
+ * Cryptographic Key information used to verify an identity is determined by the Verification Method.
+ * In order to extract key info from a specific Verification Method, there must be a subclass extending this class which relates to that
+ * Verification Method.
+ * @property {string[]} names - A list of names used to refer to a specific Verification Method. Some verification methods have several names.
+ * @property {DidVerificationKeyExtractor | EmptyDidVerificationKeyExtractor} next - If this DidVerificationKeyExtractor cannot extract information,
+ * it is delegated to another one referenced by next.
+ * @remarks This implements Chain-of-responsibility pattern and several extractors can be chained together using next property. This is helpful in
+ * situations where the type of Verification Method is not known.
+ */
 var DidVerificationKeyExtractor = /** @class */ (function () {
+    /**
+     * @constructor
+     * @param {string | string[]} names - Name(s) of the Verification Method
+     * @param {DidVerificationKeyExtractor} next - Next extractor. If not provided, EmptyDidVerificationKeyExtractor will be used.
+     */
     function DidVerificationKeyExtractor(names, next) {
         this.names = [];
         if (typeof names === 'string') {
@@ -57757,6 +57823,10 @@ var DidVerificationKeyExtractor = /** @class */ (function () {
     return DidVerificationKeyExtractor;
 }());
 exports.DidVerificationKeyExtractor = DidVerificationKeyExtractor;
+/**
+ * @classdesc A separate extractor class whose extract() method simply returns an error. Used in case reference to next is not provided.
+ * Can be used to mark the end of the extractors chain.
+ */
 var EmptyDidVerificationKeyExtractor = /** @class */ (function () {
     function EmptyDidVerificationKeyExtractor() {
     }
@@ -57767,6 +57837,10 @@ var EmptyDidVerificationKeyExtractor = /** @class */ (function () {
     ;
     return EmptyDidVerificationKeyExtractor;
 }());
+/**
+ * @classdesc Verification Key Extractor class for https://www.w3.org/TR/did-spec-registries/#jwsverificationkey2020
+ * @extends {DidVerificationKeyExtractor}
+ */
 var JwsVerificationKey2020Extractor = /** @class */ (function (_super) {
     __extends(JwsVerificationKey2020Extractor, _super);
     function JwsVerificationKey2020Extractor() {
@@ -57795,6 +57869,10 @@ var JwsVerificationKey2020Extractor = /** @class */ (function (_super) {
     };
     return JwsVerificationKey2020Extractor;
 }(DidVerificationKeyExtractor));
+/**
+ * @classdesc Verification Key Extractor class for https://www.w3.org/TR/did-spec-registries/#ed25519verificationkey2018
+ * @extends {DidVerificationKeyExtractor}
+ */
 var Ed25519VerificationKeyExtractor = /** @class */ (function (_super) {
     __extends(Ed25519VerificationKeyExtractor, _super);
     function Ed25519VerificationKeyExtractor() {
@@ -57819,6 +57897,10 @@ var Ed25519VerificationKeyExtractor = /** @class */ (function (_super) {
     };
     return Ed25519VerificationKeyExtractor;
 }(DidVerificationKeyExtractor));
+/**
+ * @classdesc Verification Key Extractor class for https://www.w3.org/TR/did-spec-registries/#gpgverificationkey2020
+ * @extends {DidVerificationKeyExtractor}
+ */
 var GpgVerificationKey2020Extractor = /** @class */ (function (_super) {
     __extends(GpgVerificationKey2020Extractor, _super);
     function GpgVerificationKey2020Extractor() {
@@ -57847,6 +57929,10 @@ var GpgVerificationKey2020Extractor = /** @class */ (function (_super) {
     };
     return GpgVerificationKey2020Extractor;
 }(DidVerificationKeyExtractor));
+/**
+ * @classdesc Verification Key Extractor class for https://www.w3.org/TR/did-spec-registries/#rsaverificationkey2018
+ * @extends {DidVerificationKeyExtractor}
+ */
 var RsaVerificationKeyExtractor = /** @class */ (function (_super) {
     __extends(RsaVerificationKeyExtractor, _super);
     function RsaVerificationKeyExtractor() {
@@ -57871,6 +57957,10 @@ var RsaVerificationKeyExtractor = /** @class */ (function (_super) {
     };
     return RsaVerificationKeyExtractor;
 }(DidVerificationKeyExtractor));
+/**
+ * @classdesc Verification Key Extractor class for https://www.w3.org/TR/did-spec-registries/#ecdsasecp256k1verificationkey2019
+ * @extends {DidVerificationKeyExtractor}
+ */
 var EcdsaSecp256k1VerificationKeyExtractor = /** @class */ (function (_super) {
     __extends(EcdsaSecp256k1VerificationKeyExtractor, _super);
     function EcdsaSecp256k1VerificationKeyExtractor() {
@@ -57895,6 +57985,10 @@ var EcdsaSecp256k1VerificationKeyExtractor = /** @class */ (function (_super) {
     };
     return EcdsaSecp256k1VerificationKeyExtractor;
 }(DidVerificationKeyExtractor));
+/**
+ * @classdesc Verification Key Extractor class for EcdsaSecp256r1VerificationKey2019. Related algorithm is ES256. Not mentioned in the spec.
+ * @extends {DidVerificationKeyExtractor}
+ */
 var EcdsaSecp256r1VerificationKey2019Extractor = /** @class */ (function (_super) {
     __extends(EcdsaSecp256r1VerificationKey2019Extractor, _super);
     function EcdsaSecp256r1VerificationKey2019Extractor() {
@@ -57919,6 +58013,10 @@ var EcdsaSecp256r1VerificationKey2019Extractor = /** @class */ (function (_super
     };
     return EcdsaSecp256r1VerificationKey2019Extractor;
 }(DidVerificationKeyExtractor));
+/**
+ * @classdesc Verification Key Extractor class for https://www.w3.org/TR/did-spec-registries/#ecdsasecp256k1recoverymethod2020
+ * @extends {DidVerificationKeyExtractor}
+ */
 var EcdsaSecp256k1RecoveryMethod2020Extractor = /** @class */ (function (_super) {
     __extends(EcdsaSecp256k1RecoveryMethod2020Extractor, _super);
     function EcdsaSecp256k1RecoveryMethod2020Extractor() {
@@ -57943,6 +58041,10 @@ var EcdsaSecp256k1RecoveryMethod2020Extractor = /** @class */ (function (_super)
     };
     return EcdsaSecp256k1RecoveryMethod2020Extractor;
 }(DidVerificationKeyExtractor));
+/**
+ * @classdesc This class is not based on specific Verification Method but simply calls the next. Can be used as the first one in the chain.
+ * @extends {DidVerificationKeyExtractor}
+ */
 var UniversalDidPublicKeyExtractor = /** @class */ (function (_super) {
     __extends(UniversalDidPublicKeyExtractor, _super);
     function UniversalDidPublicKeyExtractor() {
@@ -57953,8 +58055,14 @@ var UniversalDidPublicKeyExtractor = /** @class */ (function (_super) {
     };
     return UniversalDidPublicKeyExtractor;
 }(DidVerificationKeyExtractor));
-// SchnorrSecp256k1VerificationKey2019
-// X25519KeyAgreementKey2019
+/**
+ *
+ * @param {DidVerificationKeyMethod} method
+ * @param {DidVerificationKey} holder
+ * @returns holder
+ * @remarks Cryptographic keys can come in many different formats. This method is used to select the specific key format from a verification method and
+ * retreive the key. holder instance holds other information extracted from the Verification Method and this method fills 'format' and 'publicKey' fields.
+ */
 function getVerificationKeyFromDifferentFormats(method, holder) {
     if (!method || !holder)
         throw new Error(commons_1.ERRORS.UNSUPPORTED_KEY_FORMAT);
@@ -58007,6 +58115,9 @@ var rsaVerificationKeyExtractor = new RsaVerificationKeyExtractor('RsaVerificati
 var ecdsaSecp256k1VerificationKeyExtractor = new EcdsaSecp256k1VerificationKeyExtractor(['EcdsaSecp256k1VerificationKey2019', 'Secp256k1VerificationKey2018', 'Secp256k1'], rsaVerificationKeyExtractor);
 var ecdsaSecp256r1VerificationKey2019Extractor = new EcdsaSecp256r1VerificationKey2019Extractor('EcdsaSecp256r1VerificationKey2019', ecdsaSecp256k1VerificationKeyExtractor);
 var ecdsaSecp256k1RecoveryMethod2020Extractor = new EcdsaSecp256k1RecoveryMethod2020Extractor('EcdsaSecp256k1RecoveryMethod2020', ecdsaSecp256r1VerificationKey2019Extractor);
+/**
+ * @exports UniversalDidPublicKeyExtractor An instance of UniversalDidPublicKeyExtractor which combines all the other key extractors and act as the head of the chain.
+ */
 exports.uniExtractor = new UniversalDidPublicKeyExtractor([], ecdsaSecp256k1RecoveryMethod2020Extractor);
 
 },{"../Utils":691,"../globals":694,"./commons":680,"ethereum-checksum-address":521}],683:[function(require,module,exports){
@@ -58079,10 +58190,27 @@ var multibase_1 = __importDefault(require("multibase"));
 var multicodec_1 = __importDefault(require("multicodec"));
 var ed2curve_1 = __importDefault(require("ed2curve"));
 var axios = require('axios').default;
+/**
+ * @classdesc An abstract class which defines the interface for Resolver classes.
+ * Resolvers are used to resolve the Decentralized Identity Document for a given DID.
+ * Any extending child class must implement resolveDidDocumet(did) method.
+ * @property {string} methodName - Name of the specific DID Method. Used as a check to resolve only DIDs related to this DID Method.
+ */
 var DidResolver = /** @class */ (function () {
+    /**
+     * @constructor
+     * @param {string} methodName - Name of the specific DID Method.
+     */
     function DidResolver(methodName) {
         this.methodName = methodName;
     }
+    /**
+     *
+     * @param {string} did - DID to resolve the DID Document for.
+     * @returns A promise which resolves to a {DidDocument}
+     * @remarks A wrapper method which make use of methodName property and resolveDidDocumet(did) method
+     * to resolve documents for related DIDs only. Throws an error for DIDs of other DID Methods.
+     */
     DidResolver.prototype.resolve = function (did) {
         if (did.split(':')[1] !== this.methodName)
             throw new Error('Incorrect did method');
@@ -58090,6 +58218,12 @@ var DidResolver = /** @class */ (function () {
     };
     return DidResolver;
 }());
+/**
+ * @classdesc A Resolver class which combines several other Resolvers in chain.
+ * A given DID is tried with each Resolver object and if fails, passed to the next one in the chain.
+ * @property {any[]} resolvers - An array to contain instances of other classes which implement DidResolver class.
+ * @extends {DidResolver}
+ */
 var CombinedDidResolver = /** @class */ (function (_super) {
     __extends(CombinedDidResolver, _super);
     function CombinedDidResolver() {
@@ -58097,6 +58231,12 @@ var CombinedDidResolver = /** @class */ (function (_super) {
         _this.resolvers = [];
         return _this;
     }
+    /**
+     *
+     * @param {any} resolver - A resolver instance to add to the chain.
+     * @returns {CombinedDidResolver} To use in fluent interface pattern.
+     * @remarks Adds a given object to the resolvers array.
+     */
     CombinedDidResolver.prototype.addResolver = function (resolver) {
         this.resolvers.push(resolver);
         return this;
@@ -58136,11 +58276,23 @@ var CombinedDidResolver = /** @class */ (function (_super) {
             });
         });
     };
+    /**
+     *
+     * @param {string} did - DID to resolve the DID Document for.
+     * @returns A promise which resolves to a {DidDocument}
+     * @override resolve(did) method of the {DidResolver}
+     * @remarks Unlike other resolvers this class can resolve Documents for many DID Methods.
+     * Therefore the check in the parent class needs to be overridden.
+     */
     CombinedDidResolver.prototype.resolve = function (did) {
         return this.resolveDidDocumet(did);
     };
     return CombinedDidResolver;
 }(DidResolver));
+/**
+ * @classdesc Resolver class for Ethereum DIDs
+ * @extends {DidResolver}
+ */
 var EthrDidResolver = /** @class */ (function (_super) {
     __extends(EthrDidResolver, _super);
     function EthrDidResolver() {
@@ -58167,6 +58319,10 @@ var EthrDidResolver = /** @class */ (function (_super) {
     };
     return EthrDidResolver;
 }(DidResolver));
+/**
+ * @classdesc Resolver class for DID-KEY DIDs. These DIDs are for test purposes only.
+ * @extends {DidResolver}
+ */
 var KeyDidResolver = /** @class */ (function (_super) {
     __extends(KeyDidResolver, _super);
     function KeyDidResolver() {
@@ -58216,6 +58372,11 @@ var KeyDidResolver = /** @class */ (function (_super) {
     };
     return KeyDidResolver;
 }(DidResolver));
+/**
+ * @classdesc Resolver class which is based on the endpoint of https://dev.uniresolver.io/.
+ * Can be used resolve Documents for any DID Method supported by the service.
+ * @extends {DidResolver}
+ */
 var UniversalDidResolver = /** @class */ (function (_super) {
     __extends(UniversalDidResolver, _super);
     function UniversalDidResolver() {
@@ -58229,16 +58390,27 @@ var UniversalDidResolver = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, axios.get('https://dev.uniresolver.io/1.0/identifiers/' + did)];
                     case 1:
                         returned = _a.sent();
-                        return [2 /*return*/, returned.data.didDocument];
+                        return [2 /*return*/, returned.data];
                 }
             });
         });
     };
+    /**
+     *
+     * @param {string} did - DID to resolve the DID Document for.
+     * @returns A promise which resolves to a {DidDocument}
+     * @override resolve(did) method of the {DidResolver}
+     * @remarks Unlike other resolvers this class can resolve Documents for many DID Methods.
+     * Therefore the check in the parent class needs to be overridden.
+     */
     UniversalDidResolver.prototype.resolve = function (did) {
         return this.resolveDidDocumet(did);
     };
     return UniversalDidResolver;
 }(DidResolver));
+/**
+ * @exports CombinedDidResolver An instance of CombinedResolver which includes resolvers for currenlty implemented DID Methods.
+ */
 exports.combinedDidResolver = new CombinedDidResolver('all')
     .addResolver(new EthrDidResolver('eth'))
     .addResolver(new KeyDidResolver('key'))
@@ -58324,7 +58496,25 @@ exports.ERRORS = Object.freeze({
     URI_ERROR: 'Cannot resolve jwks from uri',
     KEY_EXISTS: 'Key already exists in the set',
 });
+/**
+ * @classdesc An abstract class which defines the generic interface of a asymmetric cryptographic key pair.
+ * @property {string} kty - Type of the specific cryptographic key
+ * @property {string} kid - ID of the specific cryptographic key
+ * @property {string} use - Cryptographic function the key is used in - encryption/signing
+ * @property {string} alg - Algorithm with which the key is used
+ * @property {boolean} private - Whether the key has the private part of asymmetric key pair
+ */
 var Key = /** @class */ (function () {
+    /**
+     * @protected
+     * @constructor
+     * @param {string} kid
+     * @param {KTYS} kty
+     * @param {string} use
+     * @param {string} [alg]
+     * @remarks Constructor initializes the generic information. Initialization of specific information needs to be done by subclasses.
+     * It is a protected method and can only be used inside the class itself or inside subclasses.
+     */
     function Key(kid, kty, use, alg) {
         this.kid = kid;
         this.kty = globals_1.KTYS[kty];
@@ -58332,23 +58522,62 @@ var Key = /** @class */ (function () {
         this.alg = alg ? alg : '';
         this.private = false;
     }
+    /**
+     * @returns {boolean} private
+     * @remarks This method is used to check if this key has private part
+     */
     Key.prototype.isPrivate = function () {
         return this.private;
     };
+    /**
+     *
+     * @param {string} kid - A string to compare against the kid value of this key.
+     * @returns {boolean} - A boolean value indicating match/mismatch
+     * @remarks This method is useful when a key with specific kid needs to be filtered out from a list of keys.
+     */
     Key.prototype.checkKid = function (kid) {
         return this.kid === kid;
     };
     return Key;
 }());
 exports.Key = Key;
+/**
+ * @classdesc A class used to represent an RSA key pair
+ * @property {string} [p] - First Prime Factor
+ * @property {string} [q] - Second Prime Factor
+ * @property {string} [d] - RSA private exponent
+ * @property {string} e - RSA public exponent
+ * @property {string} [qi] - First Chinese Remainder Theorem Coefficient
+ * @property {string} [dp] - First Factor Chinese Remainder Theorem Exponent
+ * @property {string} [dq] - Second Factor Chinese Remainder Theorem Exponent
+ * @property {string} n - RSA public modulus
+ * @extends {Key}
+ */
 var RSAKey = /** @class */ (function (_super) {
     __extends(RSAKey, _super);
+    /**
+     * @private
+     * @constructor
+     * @param {string} kid
+     * @param {KTYS} kty
+     * @param {string} n
+     * @param {string} e
+     * @param {string} use
+     * @param {string} alg
+     * @remarks Passes generic information to super class constructor. Initializes specific information. Called within static methods.
+     */
     function RSAKey(kid, kty, n, e, use, alg) {
         var _this = _super.call(this, kid, kty, use, alg) || this;
         _this.n = n;
         _this.e = e;
         return _this;
     }
+    /**
+     * @static
+     * @param {KeyInputs.RSAPublicKeyInput} keyInput - Object which contains information to initialze a RSA public key object
+     * @returns {RSAKey} - An RSAKey object
+     * @remarks This static method creates and returns an RSAKey object which has only the public information
+     */
     RSAKey.fromPublicKey = function (keyInput) {
         if ('key' in keyInput) {
             var rsaKey = new NodeRSA();
@@ -58364,6 +58593,12 @@ var RSAKey = /** @class */ (function (_super) {
             return new RSAKey(keyInput.kid, globals_1.KTYS.RSA, keyInput.n, keyInput.e, keyInput.use, keyInput.alg);
         }
     };
+    /**
+     * @static
+     * @param {KeyInputs.RSAPrivateKeyInput} keyInput - Object which contains information to initialze a RSA private key object
+     * @returns {RSAKey} - An RSAKey object
+     * @remarks This static method creates and returns an RSAKey object which has both public and private information
+     */
     RSAKey.fromPrivateKey = function (keyInput) {
         if ('key' in keyInput) {
             var rsaKey = new NodeRSA();
@@ -58395,11 +58630,25 @@ var RSAKey = /** @class */ (function (_super) {
             return rs256Key;
         }
     };
+    /**
+     * @static
+     * @param {KeyInputs.RSAPublicKeyInput | KeyInputs.RSAPrivateKeyInput} keyInput - Object which contains information to initialze a
+     * private or public RSA key object
+     * @returns {RSAKey} - An RSAKey object
+     * @remarks Wrapper method which accepts either public or private key information and returns a RSA key object
+     */
     RSAKey.fromKey = function (keyInput) {
         if (this.isPrivateKeyInput(keyInput))
             return this.fromPrivateKey(keyInput);
         return this.fromPublicKey(keyInput);
     };
+    /**
+     * @static
+     * @param {KeyInputs.RSAPublicKeyInput | KeyInputs.RSAPrivateKeyInput} keyInput - Object which contains information to initialze a
+     * private or public RSA key object
+     * @returns {boolean} - Boolean which indicates whether the input contains private information
+     * @remarks This method is used to determine specific key input has private information
+     */
     RSAKey.isPrivateKeyInput = function (keyInput) {
         if ('key' in keyInput) {
             return keyInput.isPrivate;
@@ -58457,6 +58706,11 @@ var RSAKey = /** @class */ (function (_super) {
             };
         }
     };
+    /**
+     * @param {'pkcs8'|'pkcs1'} [format = 'pkcs8'] - PEM standard
+     * @returns {string} This key in PEM format
+     * @remarks This method is used to get the key encoded in PEM format
+     */
     RSAKey.prototype.toPEM = function (format) {
         if (format === void 0) { format = 'pkcs8'; }
         var rsaKey = new NodeRSA();
@@ -58524,8 +58778,27 @@ var RSAKey = /** @class */ (function (_super) {
     return RSAKey;
 }(Key));
 exports.RSAKey = RSAKey;
+/**
+ * @classdesc A class used to represent Elliptic Curve cryptographic key
+ * @property {string} crv - Cryptographic curve used with the key
+ * @property {string} x - x coordinate for the public key point
+ * @property {string} y - y coordinate for the public key point
+ * @property {string} [d] - Private key value
+ */
 var ECKey = /** @class */ (function (_super) {
     __extends(ECKey, _super);
+    /**
+     * @private
+     * @constructor
+     * @param {string} kid
+     * @param {KTYS} kty
+     * @param {string} crv
+     * @param {string} x
+     * @param {string} y
+     * @param {string} use
+     * @param {string} alg
+     * @remarks Passes generic information to super class constructor. Initializes specific information. Called within static methods.
+     */
     function ECKey(kid, kty, crv, x, y, use, alg) {
         var _this = _super.call(this, kid, kty, use, alg) || this;
         _this.crv = crv;
@@ -58533,6 +58806,12 @@ var ECKey = /** @class */ (function (_super) {
         _this.y = y;
         return _this;
     }
+    /**
+     * @static
+     * @param {KeyInputs.ECPublicKeyInput} keyInput - Object which contains information to initialze a EC public key object
+     * @returns {ECKey} - An EC key object
+     * @remarks This static method creates and returns an ECKey object which has only the public information
+     */
     ECKey.fromPublicKey = function (keyInput) {
         if ('key' in keyInput) {
             var key_buffer = Buffer.alloc(1);
@@ -58564,6 +58843,12 @@ var ECKey = /** @class */ (function (_super) {
             return new ECKey(keyInput.kid, globals_1.KTYS.EC, keyInput.crv, keyInput.x, keyInput.y, keyInput.use, keyInput.alg);
         }
     };
+    /**
+     * @static
+     * @param {KeyInputs.ECPrivateKeyInput} keyInput - Object which contains information to initialze a EC private key object
+     * @returns {ECKey} - An EC key object
+     * @remarks This static method creates and returns an ECKey object which has public and private information
+     */
     ECKey.fromPrivateKey = function (keyInput) {
         if ('key' in keyInput) {
             var key_buffer = Buffer.alloc(1);
@@ -58601,11 +58886,25 @@ var ECKey = /** @class */ (function (_super) {
             return ecKey;
         }
     };
+    /**
+     * @static
+     * @param {KeyInputs.ECPublicKeyInput | KeyInputs.ECPrivateKeyInput} keyInput - Object which contains information to initialze a
+     * private or public EC key object
+     * @returns {ECKey} - An EC Key object
+     * @remarks Wrapper method which accepts either public or private key information and returns an EC key object
+     */
     ECKey.fromKey = function (keyInput) {
         if (this.isPrivateKeyInput(keyInput))
             return this.fromPrivateKey(keyInput);
         return this.fromPublicKey(keyInput);
     };
+    /**
+     * @static
+     * @param {KeyInputs.ECPublicKeyInput | KeyInputs.ECPrivateKeyInput} keyInput - Object which contains information to initialze a
+     * private or public EC key object
+     * @returns {boolean} - A boolean which indicates whether the input contains private information
+     * @remarks This method is used to determine specific key input has private information
+     */
     ECKey.isPrivateKeyInput = function (keyInput) {
         if ('key' in keyInput) {
             return keyInput.isPrivate;
@@ -58705,14 +59004,37 @@ var ECKey = /** @class */ (function (_super) {
     return ECKey;
 }(Key));
 exports.ECKey = ECKey;
+/**
+ * @classdesc A class used to represent Octet Key Pair (Edwards curve) cryptographic key
+ * @property {string} crv - Cryptographic curve used with the key
+ * @property {string} x - x coordinate for the public key point
+ * @property {string} [d] - Private key value
+ */
 var OKP = /** @class */ (function (_super) {
     __extends(OKP, _super);
+    /**
+     * @private
+     * @constructor
+     * @param {string} kid
+     * @param {KTYS} kty
+     * @param {string} crv
+     * @param {string} x
+     * @param {string} use
+     * @param {string} alg
+     * @remarks Passes generic information to super class constructor. Initializes specific information. Called within static methods.
+     */
     function OKP(kid, kty, crv, x, use, alg) {
         var _this = _super.call(this, kid, kty, use, alg) || this;
         _this.crv = crv;
         _this.x = x;
         return _this;
     }
+    /**
+     * @static
+     * @param {KeyInputs.OKPPublicKeyInput} keyInput - Object which contains information to initialze a OKP public key object
+     * @returns {OKP} - An OKP object
+     * @remarks This static method creates and returns an OKP object which has only the public information
+     */
     OKP.fromPublicKey = function (keyInput) {
         if ('key' in keyInput) {
             var key_buffer = Buffer.alloc(1);
@@ -58743,6 +59065,12 @@ var OKP = /** @class */ (function (_super) {
             return new OKP(keyInput.kid, globals_1.KTYS.OKP, keyInput.crv, keyInput.x, keyInput.use, keyInput.alg);
         }
     };
+    /**
+     * @static
+     * @param {KeyInputs.OKPPrivateKeyInput} keyInput - Object which contains information to initialze a OKP private key object
+     * @returns {ECKey} - An OKP object
+     * @remarks This static method creates and returns an OKP object which has public and private information
+     */
     OKP.fromPrivateKey = function (keyInput) {
         if ('key' in keyInput) {
             var key_buffer = Buffer.alloc(1);
@@ -58781,11 +59109,25 @@ var OKP = /** @class */ (function (_super) {
             return ecKey;
         }
     };
+    /**
+     * @static
+     * @param {KeyInputs.OKPPublicKeyInput | KeyInputs.OKPPrivateKeyInput} keyInput - Object which contains information to initialze a
+     * private or public OKP object
+     * @returns {ECKey} - An OKP object
+     * @remarks Wrapper method which accepts either public or private key information and returns an OKP object
+     */
     OKP.fromKey = function (keyInput) {
         if (this.isPrivateKeyInput(keyInput))
             return this.fromPrivateKey(keyInput);
         return this.fromPublicKey(keyInput);
     };
+    /**
+     * @static
+     * @param {KeyInputs.OKPPublicKeyInput | KeyInputs.OKPPrivateKeyInput} keyInput - Object which contains information to initialze a
+     * private or public OKP object
+     * @returns {boolean} - A boolean which indicates whether the input contains private information
+     * @remarks This method is used to determine specific key input has private information
+     */
     OKP.isPrivateKeyInput = function (keyInput) {
         if ('key' in keyInput) {
             return keyInput.isPrivate;
@@ -58875,11 +59217,20 @@ var OKP = /** @class */ (function (_super) {
     return OKP;
 }(Key));
 exports.OKP = OKP;
+/**
+ * @classdesc A class used to represent a JSON Web Key Set (JWKS)
+ * @property {Key[]} keySet - An array of Key objects. Initially set to empty.
+ * @property {string} uri - An URI from which a key set can be retrieved.
+ */
 var KeySet = /** @class */ (function () {
     function KeySet() {
         this.ketSet = [];
         this.uri = '';
     }
+    /**
+     * @param {KeyObjects.BasicKeyObject[]} keySet - An array of KeyObjects.BasicKeyObject objects.
+     * @remarks This method accepts an array of KeyObjects.BasicKeyObject objects and converts them to Key objects of related types.
+     */
     KeySet.prototype.setKeys = function (keySet) {
         var newKeySet = [];
         keySet.forEach(function (key) {
@@ -58901,6 +59252,10 @@ var KeySet = /** @class */ (function () {
         });
         this.ketSet = newKeySet;
     };
+    /**
+     * @param {string} uri - An URI from which a key set can be retrieved.
+     * @remarks This method sets the uri property and tries to retrieve a key set from it
+     */
     KeySet.prototype.setURI = function (uri) {
         return __awaiter(this, void 0, void 0, function () {
             var returnedSet, err_1;
@@ -58924,12 +59279,21 @@ var KeySet = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @param {string} kid - ID of the key which needs to be retrieved from the set
+     * @returns {Key[]} - A Key object(s) which has kid values matching given ID
+     * @remarks This method can be used to filter out a Key or set of Keys which has a specific kid value
+     */
     KeySet.prototype.getKey = function (kid) {
         var keys = this.ketSet.filter(function (k) { return k.checkKid(kid); });
         if (keys.length > 0)
             return keys;
         throw new Error(exports.ERRORS.NO_MATCHING_KEY);
     };
+    /**
+     * @param {KeyObjects.BasicKeyObject} key
+     * @remarks This method is used to add a new Key to the set
+     */
     KeySet.prototype.addKey = function (key) {
         if (this.ketSet.filter(function (k) { return k.checkKid(key.kid); }).length === 0) {
             switch (key.kty) {
@@ -58952,15 +59316,29 @@ var KeySet = /** @class */ (function () {
             throw new Error(exports.ERRORS.KEY_EXISTS);
         }
     };
+    /**
+     * @param {string} kid - The ID value of the Key which needs to be removed from the set
+     * @remarks This method is used to remove a Key or set of Keys by kid value
+     */
     KeySet.prototype.removeKey = function (kid) {
         this.ketSet = this.ketSet.filter(function (key) { return !key.checkKid(kid); });
     };
+    /**
+     * @returns {number} The number of keys in the set
+     * @remarks This method returms the size of the Key set
+     */
     KeySet.prototype.size = function () {
         return this.ketSet.length;
     };
     return KeySet;
 }());
 exports.KeySet = KeySet;
+/**
+ * @param {any} minimalJWK - The JWK object to calculate the thumbprint
+ * @returns {string} - JWK thumbprint of the given JWK
+ * @remarks This standalone method is used to calculate the thumbprint (https://tools.ietf.org/html/rfc7638#section-3)
+ * for a given JWK
+ */
 function calculateThumbprint(minimalJWK) {
     var sha256 = crypto_1.createHash('sha256');
     var hash = sha256.update(JSON.stringify(minimalJWK)).digest();
@@ -58986,6 +59364,14 @@ exports.ERRORS = Object.freeze({
     INVALID_JWT: 'Invalid JWT',
     INVALID_SIGNATURE: 'Invalid signature',
 });
+/**
+ * @param {JWTObject} jwtObject - JWT which needs to be signed
+ * @param {SigningInfo} signingInfo - Information about signing key and algorithm
+ * @returns {string} - A signed JWT (JWS) https://tools.ietf.org/html/rfc7515
+ * @remarks This method first checks for the validity of signingInfo and header part of jwtObject.
+ * If information provided are valid then jwtObject will be signed with an appropriate Signer and the
+ * signed object (encoded jwt + signature) (JWS) will be returned.
+ */
 function sign(jwtObject, signingInfo) {
     var unsigned = base64url_1.default.encode(JSON.stringify(jwtObject.header)) + '.' + base64url_1.default.encode(JSON.stringify(jwtObject.payload));
     var algorithm = globals_1.ALGORITHMS[jwtObject.header.alg];
@@ -59047,6 +59433,14 @@ function sign(jwtObject, signingInfo) {
     }
 }
 exports.sign = sign;
+/**
+ * @param {sting} jwt - A signed and encoded jwt (JWS) which needs to be verified.
+ * @param {SigningInfo} signingInfo - Information about verification key and algorithm
+ * @returns {boolean} - A boolean which indicates whether JWS is verifiable with given information.
+ * @remarks This method first decodes the JWT and then checks for the validity of signingInfo and header part of jwtObject.
+ * If information provided are valid then jwt will be verified using the related Verifier and the resulting boolean value will be
+ * returned.
+ */
 function verify(jwt, signingInfo) {
     var decoded = decodeJWT(jwt);
     var algorithm = globals_1.ALGORITHMS[decoded.header.alg];
@@ -59107,6 +59501,12 @@ function verify(jwt, signingInfo) {
     }
 }
 exports.verify = verify;
+/**
+ * @param {string} jwt - A signed jwt (JWS)
+ * @returns {JWTSignedObject} - An object containing decoded parts
+ * @remarks - This is a helper method used to decode a signed jwt (base64url encoded) and return its parts in
+ * separate fields.
+ */
 function decodeJWT(jwt) {
     try {
         var decodedHeader = JSON.parse(base64url_1.default.decode(jwt.split('.')[0]));
@@ -59188,11 +59588,23 @@ exports.ERRORS = Object.freeze({
     UNRESOLVED_IDENTITY: 'Unresolved identity',
     NO_PUBLIC_KEY: 'No public key matches given private key',
 });
+/**
+ * @classdesc This class provides the functionality of a DID based Self Issued OpenID Connect Provider
+ * @property {Identity} identity  - Used to store Decentralized Identity information of the Provider (end user)
+ * @property {SigningInfo[]} signing_info_set - Used to store a list of cryptographic information used to sign id_tokens
+ */
 var Provider = /** @class */ (function () {
     function Provider() {
         this.identity = new Identity_1.Identity();
         this.signing_info_set = [];
     }
+    /**
+     * @param {string} did - The DID of the provider (end user)
+     * @param {DidDocument} [doc] - DID Document of the provider (end user).
+     * @remarks This method is used to set the decentralized identity for the provider (end user).
+     * doc parameter is optional and if provided it will be used to directly set the identity.
+     * Otherwise the DID Document will be resolved over a related network.
+     */
     Provider.prototype.setUser = function (did, doc) {
         return __awaiter(this, void 0, void 0, function () {
             var err_1;
@@ -59216,6 +59628,18 @@ var Provider = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @param {string} key - Private part of any cryptographic key listed in the 'authentication' field of the user's DID Document
+     * @param {string} [kid] - kid value of the key. Optional and not used
+     * @param {KEY_FORMATS| string} [format] - Format in which the private key is supplied. Optional and not used
+     * @param {ALGORITHMS} [algorithm] - Algorithm to use the key with. Optional and not used
+     * @returns {string} - kid of the added key
+     * @remarks This method is used to add signing information to 'signing_info_set'.
+     * All optional parameters are not used and only there to make the library backward compatible.
+     * Instead of using those optional parameters, given key is iteratively tried with
+     * every public key listed in the 'authentication' field of RP's DID Document and every key format
+     * until a compatible combination of those information which can be used for the signing process is found.
+     */
     Provider.prototype.addSigningParams = function (key, kid, format, algorithm) {
         try {
             if (format) { }
@@ -59306,6 +59730,10 @@ var Provider = /** @class */ (function () {
             throw err;
         }
     };
+    /**
+     * @param {string} kid - kid value of the SigningInfo which needs to be removed from the list
+     * @remarks This method is used to remove a certain SigningInfo (key) which has the given kid value from the list.
+     */
     Provider.prototype.removeSigningParams = function (kid) {
         try {
             this.signing_info_set = this.signing_info_set.filter(function (s) { return s.kid !== kid; });
@@ -59314,6 +59742,11 @@ var Provider = /** @class */ (function () {
             throw err;
         }
     };
+    /**
+     * @param {string} request - A DID SIOP request
+     * @returns {Promise<JWT.JWTObject>} - A Promise which resolves to a decoded request JWT
+     * @remarks This method is used to validate requests coming from Relying Parties.
+     */
     Provider.prototype.validateRequest = function (request) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
@@ -59327,6 +59760,13 @@ var Provider = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @param {any} requestPayload - Payload of the request JWT for which a response needs to be generated
+     * @param {number} expiresIn - Number of miliseconds under which the generated response is valid. Relying Parties can
+     * either consider this value or ignore it
+     * @returns {Promise<string>} - A Promise which resolves to an encoded DID SIOP response JWT
+     * @remarks This method is used to generate a response to a given DID SIOP request.
+     */
     Provider.prototype.generateResponse = function (requestPayload, expiresIn) {
         if (expiresIn === void 0) { expiresIn = 1000; }
         return __awaiter(this, void 0, void 0, function () {
@@ -59350,6 +59790,11 @@ var Provider = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @param {string} errorMessage - Message of a specific SIOPErrorResponse
+     * @returns {string} - Encoded SIOPErrorResponse object
+     * @remarks This method is used to generate error responses.
+     */
     Provider.prototype.generateErrorResponse = function (errorMessage) {
         try {
             return ErrorResponse.getBase64URLEncodedError(errorMessage);
@@ -59413,7 +59858,23 @@ exports.ERRORS = Object.freeze({
     NO_SIGNING_INFO: 'At least one public key must be confirmed with related private key',
     NO_PUBLIC_KEY: 'No public key matches given private key',
 });
+/**
+ * @classdesc This class provides the Relying Party functionality of DID based Self Issued OpenID Connect
+ * @property {RPInfo} - Used to hold Relying Party information needed in issuing requests (ex:- redirect_uri)
+ * @property {Identity} identity  - Used to store Decentralized Identity information of the Relying Party
+ * @property {SigningInfo[]} signing_info_set - Used to store a list of cryptographic information used to sign DID SIOP requests
+ */
 var RP = /** @class */ (function () {
+    /**
+     * @private
+     * @constructor
+     * @param {string} redirect_uri - Redirect uri of the RP. Response from the Provider is sent to this uri
+     * @param {string} did - Decentralized Identity of the Relying Party
+     * @param {any} registration - Registration information of the Relying Party
+     * https://openid.net/specs/openid-connect-core-1_0.html#RegistrationParameter
+     * @param {DidDocument} [did_doc] - DID Document of the RP. Optional
+     * @remarks - This is a private constructor used inside static async method getRP
+     */
     function RP(redirect_uri, did, registration, did_doc) {
         this.identity = new Identity_1.Identity();
         this.signing_info_set = [];
@@ -59424,6 +59885,16 @@ var RP = /** @class */ (function () {
             did_doc: did_doc
         };
     }
+    /**
+     * @param {string} redirect_uri - Redirect uri of the RP. Response from the Provider is sent to this uri
+     * @param {string} did - Decentralized Identity of the Relying Party
+     * @param {any} registration - Registration information of the Relying Party
+     * https://openid.net/specs/openid-connect-core-1_0.html#RegistrationParameter
+     * @param {DidDocument} [did_doc] - DID Document of the RP. Optional
+     * @returns {Promise<RP>} - A Promise which resolves to an instance of RP class
+     * @remarks Creating RP instances involves some async code and cannot be implemented as a constructor.
+     * Hence this static method is used in place of the constructor.
+     */
     RP.getRP = function (redirect_uri, did, registration, did_doc) {
         return __awaiter(this, void 0, void 0, function () {
             var rp, err_1;
@@ -59448,6 +59919,18 @@ var RP = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @param {string} key - Private part of any cryptographic key listed in the 'authentication' field of RP's DID Document
+     * @param {string} [kid] - kid value of the key. Optional and not used
+     * @param {KEY_FORMATS| string} [format] - Format in which the private key is supplied. Optional and not used
+     * @param {ALGORITHMS} [algorithm] - Algorithm to use the key with. Optional and not used
+     * @returns {string} - kid of the added key
+     * @remarks This method is used to add signing information to 'signing_info_set'.
+     * All optional parameters are not used and only there to make the library backward compatible.
+     * Instead of using those optional parameters, given key is iteratively tried with
+     * every public key listed in the 'authentication' field of RP's DID Document and every key format
+     * until a compatible combination of those information which can be used for the signing process is found.
+     */
     RP.prototype.addSigningParams = function (key, kid, format, algorithm) {
         try {
             if (format) { }
@@ -59538,6 +60021,10 @@ var RP = /** @class */ (function () {
             throw err;
         }
     };
+    /**
+     * @param {string} kid - kid value of the SigningInfo which needs to be removed from the list
+     * @remarks This method is used to remove a certain SigningInfo (key) which has the given kid value from the list.
+     */
     RP.prototype.removeSigningParams = function (kid) {
         try {
             this.signing_info_set = this.signing_info_set.filter(function (s) { return s.kid !== kid; });
@@ -59546,6 +60033,12 @@ var RP = /** @class */ (function () {
             throw err;
         }
     };
+    /**
+     * @param {any} [options = {}] - Any optional field which should be included in the request JWT. Any field which is not supported
+     * at Provider's end will be ignored
+     * @returns {Promise<string>} - A Promise which resolves to a DID SIOP request
+     * @remarks This method is used to generate a request sent to a DID SIOP Provider.
+     */
     RP.prototype.generateRequest = function (options) {
         if (options === void 0) { options = {}; }
         return __awaiter(this, void 0, void 0, function () {
@@ -59567,6 +60060,14 @@ var RP = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @param {string} request_uri - A uri from which a pre-configured and signed request JWT can be obtained
+     * @param {any} [options = {}] - Any optional field which should be included in the request JWT. Any field which is not supported
+     * at Provider's end will be ignored
+     * @returns {Promise<string>} - A Promise which resolves to a DID SIOP request
+     * @remarks This method is used to generate a request which has 'request_uri' in place of the 'request' parameter.
+     * https://identity.foundation/did-siop/#generate-siop-request
+     */
     RP.prototype.generateUriRequest = function (request_uri, options) {
         if (options === void 0) { options = {}; }
         return __awaiter(this, void 0, void 0, function () {
@@ -59586,6 +60087,12 @@ var RP = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @param {string} response - A DID SIOP response
+     * @param {CheckParams} [checkParams = {redirect_uri: this.info.redirect_uri}] - Parameters against which the response needs to be validated
+     * @returns {Promise<JWT.JWTObject> | SIOPErrorResponse} - A Promise which resolves either to a decoded response or a SIOPErrorResponse
+     * @remarks This method is used to validate responses coming from DID SIOP Providers.
+     */
     RP.prototype.validateResponse = function (response, checkParams) {
         if (checkParams === void 0) { checkParams = { redirect_uri: this.info.redirect_uri }; }
         return __awaiter(this, void 0, void 0, function () {
@@ -59680,9 +60187,18 @@ var axios = require('axios').default;
 var RESPONSE_TYPES = ['id_token',];
 var SUPPORTED_SCOPES = ['openid', 'did_authn',];
 var REQUIRED_SCOPES = ['openid', 'did_authn',];
+/**
+ * @classdesc This class contains static methods related to DID SIOP request generation and validation
+ */
 var DidSiopRequest = /** @class */ (function () {
     function DidSiopRequest() {
     }
+    /**
+     * @param {string} request - A request which needs to be checked for validity
+     * @returns {Promise<JWT.JWTObject>} - A Promise which resolves to the decoded request JWT
+     * @remarks This method make use of two functions which first validates the url parameters of the request
+     * and then the request JWT contained in 'request' or 'requestURI' parameter
+     */
     DidSiopRequest.validateRequest = function (request) {
         return __awaiter(this, void 0, void 0, function () {
             var requestJWT, jwtDecoded;
@@ -59699,6 +60215,18 @@ var DidSiopRequest = /** @class */ (function () {
             });
         });
     };
+    /**
+     * @param {RPInfo} rp - Information about the Relying Party (the issuer of the request)
+     * @param {JWT.SigningInfo} signingInfo - Information used in the request signing process
+     * @param {any} options - Optional fields. Directly included in the request JWT.
+     * Any optional field if not supported will be ignored
+     * @returns {Promise<string>} - A Promise which resolves to the request
+     * @remarks This method is used to generate a DID SIOP request using information provided by the Relying Party.
+     * Process has two steps. First generates the request with URL params
+     * and then creates the signed JWT (unless the 'requestURI' field is specified in RPInfo).
+     * JWT is then added to the 'request' param of the request.
+     * https://identity.foundation/did-siop/#generate-siop-request
+     */
     DidSiopRequest.generateRequest = function (rp, signingInfo, options) {
         return __awaiter(this, void 0, void 0, function () {
             var url, query, jwtHeader, jwtPayload, jwtObject, jwt;
@@ -59736,6 +60264,13 @@ var DidSiopRequest = /** @class */ (function () {
     return DidSiopRequest;
 }());
 exports.DidSiopRequest = DidSiopRequest;
+/**
+ * @param {string} request - A DID SIOP request which needs to be validated
+ * @returns {string} - An encoded JWT which is extracted from 'request' or 'requestURI' fields
+ * @remarks This method is used to check the validity of DID SIOP request URL parameters.
+ * If the parameters in the request url is valid then this method returns the encoded request JWT
+ * https://identity.foundation/did-siop/#siop-request-validation
+ */
 function validateRequestParams(request) {
     return __awaiter(this, void 0, void 0, function () {
         var parsed, requestedScopes_1, returnedValue, err_1;
@@ -59782,6 +60317,17 @@ function validateRequestParams(request) {
         });
     });
 }
+/**
+ * @param {string} requestJWT - An encoded JWT
+ * @returns {Promise<JWT.JWTObject>} - A Promise which resolves to a decoded request JWT
+ * @remarks This method is used to verify the authenticity of the request JWT which comes in 'request' or 'requestURI'
+ * url parameter of the original request.
+ * At first after decoding the JWT, this method checks for mandatory fields and their values.
+ * Then it will proceed to verify the signature using a public key retrieved from Relying Party's DID Document.
+ * The specific public key used to verify the signature is determined by the 'kid' field in JWT header.
+ * If the JWT is successfully verified then this method will return the decoded JWT
+ * https://identity.foundation/did-siop/#siop-request-validation
+ */
 function validateRequestJWT(requestJWT) {
     return __awaiter(this, void 0, void 0, function () {
         var decodedHeader, decodedPayload, publicKeyInfo, identity, didPubKey, err_2, keyset, keySetKey, keySetKeyFormat, validity;
@@ -59955,9 +60501,25 @@ var ERRORS = Object.freeze({
     INVALID_JWK_THUMBPRINT: 'Invalid sub (sub_jwk thumbprint)',
     INVALID_SIGNATURE_ERROR: 'Invalid signature error',
 });
+/**
+ * @classdesc This class contains static methods related to DID SIOP response generation and validation
+ */
 var DidSiopResponse = /** @class */ (function () {
     function DidSiopResponse() {
     }
+    /**
+     * @param {any} requestPayload - Payload of the request JWT. Some information from this object is needed in constructing the response
+     * @param {JWT.SigningInfo} signingInfo - Key information used to sign the response JWT
+     * @param {Identity} didSiopUser - Used to retrieve the information about the provider (user DID) which are included in the response
+     * @param {number} [expiresIn = 1000] - Amount of time under which generated id_token (response) is valid. The party which validate the
+     * response can either consider this value or ignore it
+     * @returns {Promise<string>} - A promise which resolves to a response (id_token) (JWT)
+     * @remarks This method first checks if given SigningInfo is compatible with the algorithm required by the RP in
+     * 'requestPayload.registration.id_token_signed_response_alg' field.
+     * Then it proceeds to extract provider's (user) public key from 'didSiopUser' param using 'kid' field in 'signingInfo' param.
+     * Finally it will create the response JWT (id_token) with relevant information, sign it using 'signingInfo' and return it.
+     * https://identity.foundation/did-siop/#generate-siop-response
+     */
     DidSiopResponse.generateResponse = function (requestPayload, signingInfo, didSiopUser, expiresIn) {
         if (expiresIn === void 0) { expiresIn = 1000; }
         return __awaiter(this, void 0, void 0, function () {
@@ -60042,6 +60604,22 @@ var DidSiopResponse = /** @class */ (function () {
             });
         });
     };
+    /**
+     *
+     * @param {string} response - A DID SIOP response which needs to be validated
+     * @param {CheckParams} checkParams - Specific field values in the JWT which needs to be validated
+     * @returns {Promise<JWT.JWTObject | ErrorResponse.SIOPErrorResponse>} - A promise wich will resolve either to a decoded id_token (JWT)
+     * or an error response
+     * @remarks This method first decodes the response JWT.
+     * Then checks if it is an error response and if so, returns it.
+     * Else it will proceed to validate the JWT (id_token).
+     * Fields in the JWT header and payload will be checked for availability.
+     * Then the id_token will be validated against 'checkParams'.
+     * Then the signature of the id_token is verified using public key information derived from
+     * the 'kid' field in the header and 'did' field in the payload.
+     * If the verification is successful, this method returns the decoded id_token (JWT).
+     * https://identity.foundation/did-siop/#siop-response-validation
+     */
     DidSiopResponse.validateResponse = function (response, checkParams) {
         return __awaiter(this, void 0, void 0, function () {
             var decodedHeader, decodedPayload, errorResponse, jwkThumbprint, publicKeyInfo, identity, didPubKey, err_1, validity;
@@ -60163,17 +60741,32 @@ exports.ERRORS = Object.freeze({
     NO_PRIVATE_KEY: 'Not a private key',
     INVALID_ALGORITHM: 'Invalid algorithm',
 });
+/**
+ * @classdesc This abstract class defines the interface for classes used to cryptographically sign messages
+ */
 var Signer = /** @class */ (function () {
     function Signer() {
     }
     return Signer;
 }());
 exports.Signer = Signer;
+/**
+ * @classdesc This class provides RSA message signing
+ * @extends {Signer}
+ */
 var RSASigner = /** @class */ (function (_super) {
     __extends(RSASigner, _super);
     function RSASigner() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * @param {string} message - Message which needs to be signed
+     * @param {RSAKey} key - An RSAKey object used to sign the message
+     * @param {ALGORITHMS} algorithm - The algorithm used for the signing process. Must be one of RSA + SHA variant
+     * @returns {Buffer} - A Buffer object which contains the generated signature in binary form
+     * @remarks This method first checks if the key provided has private part. Then it proceed to sign the message using
+     * selected algorithm (RSA + given SHA variant)
+     */
     RSASigner.prototype.sign = function (message, key, algorithm) {
         if (key.isPrivate()) {
             var signer = void 0;
@@ -60219,11 +60812,23 @@ var RSASigner = /** @class */ (function (_super) {
     return RSASigner;
 }(Signer));
 exports.RSASigner = RSASigner;
+/**
+ * @classdesc This class provides Elliptic Curve message signing
+ * @extends {Signer}
+ */
 var ECSigner = /** @class */ (function (_super) {
     __extends(ECSigner, _super);
     function ECSigner() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * @param {string} message - Message which needs to be signed
+     * @param {ECKey} key - An ECKey object used to sign the message
+     * @param {ALGORITHMS} algorithm - The algorithm used for the signing process. Must be one of Curve variant + SHA variant
+     * @returns {Buffer} - A Buffer object which contains the generated signature in binary form
+     * @remarks This method first checks if the key provided has private part. Then it proceed to sign the message using
+     * selected algorithm (given Curve + given SHA variant)
+     */
     ECSigner.prototype.sign = function (message, key, algorithm) {
         if (key.isPrivate()) {
             var sha = void 0;
@@ -60271,11 +60876,23 @@ var ECSigner = /** @class */ (function (_super) {
     return ECSigner;
 }(Signer));
 exports.ECSigner = ECSigner;
+/**
+ * @classdesc This class provides Edwards Curve message signing
+ * @extends {Signer}
+ */
 var OKPSigner = /** @class */ (function (_super) {
     __extends(OKPSigner, _super);
     function OKPSigner() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * @param {string} message - Message which needs to be signed
+     * @param {OKP} key - An OKP object used to sign the message
+     * @param {ALGORITHMS} algorithm - The algorithm used for the signing process. (ed25519 curve)
+     * @returns {Buffer} - A Buffer object which contains the generated signature in binary form
+     * @remarks This method first checks if the key provided has private part. Then it proceed to sign the message using
+     * selected algorithm (ed25519)
+     */
     OKPSigner.prototype.sign = function (message, key, algorithm) {
         if (key.isPrivate()) {
             var ed = void 0;
@@ -60297,11 +60914,22 @@ var OKPSigner = /** @class */ (function (_super) {
     return OKPSigner;
 }(Signer));
 exports.OKPSigner = OKPSigner;
+/**
+ * @classdesc This class provides message signing using ES256K-R algorithm
+ * @extends {Signer}
+ */
 var ES256KRecoverableSigner = /** @class */ (function (_super) {
     __extends(ES256KRecoverableSigner, _super);
     function ES256KRecoverableSigner() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * @param {string} message - Message which needs to be signed
+     * @param {ECKey | string} key - The key either as an ECKey or a hex string
+     * @returns {Buffer} - A Buffer object which contains the generated signature in binary form
+     * @remarks This method first checks whether the key is a string. If it is not then it will be converted to string
+     * using ECKey.exportKey(). This class supports only one algorithm which is curve secp256k1 recoverable method.
+     */
     ES256KRecoverableSigner.prototype.sign = function (message, key) {
         var keyHexString;
         if (typeof key === 'string') {
@@ -60331,6 +60959,13 @@ exports.ES256KRecoverableSigner = ES256KRecoverableSigner;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var globals_1 = require("./globals");
+/**
+ * @param {string} data - The string value needed to be padded
+ * @param {number} [size = 64] - Required size (with padding). Default value is 64
+ * @returns {string} - Left '0' padded string with the length specified by size param
+ * @remarks This is a helper method used to add '0's to the start of a string
+ * in order to increase its length to a specific value
+ */
 function leftpad(data, size) {
     if (size === void 0) { size = 64; }
     if (data.length === size)
@@ -60338,20 +60973,44 @@ function leftpad(data, size) {
     return '0'.repeat(size - data.length) + data;
 }
 exports.leftpad = leftpad;
+/**
+ * @param {Key} privateKey - A Key object consisting of the private part of an asymmetric key pair
+ * @param {Key} publicKey - A Key object consisting of the public part of an asymmetric key pair
+ * @param {Signer} signer - A Signer object to test with the key pair
+ * @param {Verifier} verifier - An object of related Verifier
+ * @param {ALGORITHMS} algorithm - The algorithm to test with
+ * @returns {boolean} - A boolean value indicating the validity of two Keys.
+ * @remarks This is a helper function used to check if a certain private key relates to a certain public key
+ */
 function checkKeyPair(privateKey, publicKey, signer, verifier, algorithm) {
     var message = 'some test message';
     var signature = signer.sign(message, privateKey, algorithm);
     return verifier.verify(message, signature, publicKey, algorithm);
 }
 exports.checkKeyPair = checkKeyPair;
+/**
+ * @param {string} alg - Name of the algorithm as a string
+ * @returns {ALGORITHMS} - Related enum type of the algorihm
+ * @remarks This function is used to convert an algorithm name given as a string to a ALGORITHM value
+ */
 function getAlgorithm(alg) {
     return globals_1.ALGORITHMS[alg.toUpperCase()];
 }
 exports.getAlgorithm = getAlgorithm;
+/**
+ * @param {string} format - Name of the key format as a string
+ * @returns {KEY_FORMATS} - Related enum type of the key format
+ * @remarks This function is used to convert a key format given as a string to a KEY_FORMAT value
+ */
 function getKeyFormat(format) {
     return globals_1.KEY_FORMATS[format.toUpperCase()];
 }
 exports.getKeyFormat = getKeyFormat;
+/**
+ * @param {string} kty - Name of the key type as a string
+ * @returns {KTYS} - Related enum type of the key type
+ * @remarks This function is used to convert a key type name given as a string to a KTYS value
+ */
 function getKeyType(kty) {
     return globals_1.KTYS[kty.toUpperCase()];
 }
@@ -60383,17 +61042,32 @@ exports.ERRORS = Object.freeze({
     INVALID_ALGORITHM: 'Invalid algorithm',
     INVALID_SIGNATURE: 'Invalid signature',
 });
+/**
+ * @classdesc This abstract class defines the interface for classes used to verify cryptographically signed messages
+ */
 var Verifier = /** @class */ (function () {
     function Verifier() {
     }
     return Verifier;
 }());
 exports.Verifier = Verifier;
+/**
+ * @classdesc This class provides RSA signature verification
+ * @extends {Verifier}
+ */
 var RSAVerifier = /** @class */ (function (_super) {
     __extends(RSAVerifier, _super);
     function RSAVerifier() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * @param {string} msg - The message which needs to be verified
+     * @param {Buffer} signature - The signature of the message
+     * @param {RSAKey} key - An RSAKey object used for verification (Public Key)
+     * @param {ALGORITHMS} algorithm - The algorithm used for the verification process. Must be one of RSA + SHA variant
+     * @returns {boolean} - The result of the verification. Indicates whether the given signature matches the message.
+     * @remarks This method will verify the message using selected algorithm and return the result.
+     */
     RSAVerifier.prototype.verify = function (msg, signature, key, algorithm) {
         try {
             var verifier = void 0;
@@ -60439,11 +61113,23 @@ var RSAVerifier = /** @class */ (function (_super) {
     return RSAVerifier;
 }(Verifier));
 exports.RSAVerifier = RSAVerifier;
+/**
+ * @classdesc This class provides Elliptic Curve signature verification
+ * @extends {Verifier}
+ */
 var ECVerifier = /** @class */ (function (_super) {
     __extends(ECVerifier, _super);
     function ECVerifier() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * @param {string} msg - The message which needs to be verified
+     * @param {Buffer} signature - The signature of the message
+     * @param {ECKey} key - An ECKey object used for verification (Public Key)
+     * @param {ALGORITHMS} algorithm - The algorithm used for the verification process. Must be one of Curve variant + SHA variant
+     * @returns {boolean} - The result of the verification. Indicates whether the given signature matches the message.
+     * @remarks This method will verify the message using selected algorithm and return the result.
+     */
     ECVerifier.prototype.verify = function (msg, signature, key, algorithm) {
         try {
             var sha = void 0;
@@ -60493,11 +61179,23 @@ var ECVerifier = /** @class */ (function (_super) {
     return ECVerifier;
 }(Verifier));
 exports.ECVerifier = ECVerifier;
+/**
+ * @classdesc This class provides Edwards Curve signature verification
+ * @extends {Verifier}
+ */
 var OKPVerifier = /** @class */ (function (_super) {
     __extends(OKPVerifier, _super);
     function OKPVerifier() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * @param {string} msg - The message which needs to be verified
+     * @param {Buffer} signature - The signature of the message
+     * @param {OKP} key - An OKP object used for verification (Public Key)
+     * @param {ALGORITHMS} algorithm - The algorithm used for the verification process. (ed25519)
+     * @returns {boolean} - The result of the verification. Indicates whether the given signature matches the message.
+     * @remarks This method will verify the message using selected algorithm (ed25519) and return the result.
+     */
     OKPVerifier.prototype.verify = function (msg, signature, key, algorithm) {
         try {
             var ed = void 0;
@@ -60518,11 +61216,23 @@ var OKPVerifier = /** @class */ (function (_super) {
     return OKPVerifier;
 }(Verifier));
 exports.OKPVerifier = OKPVerifier;
+/**
+ * @classdesc This class provides signature verification using ES256K-R algorithm
+ * @extends {Verifier}
+ */
 var ES256KRecoverableVerifier = /** @class */ (function (_super) {
     __extends(ES256KRecoverableVerifier, _super);
     function ES256KRecoverableVerifier() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * @param {string} msg - The message which needs to be verified
+     * @param {Buffer} signature - The signature of the message
+     * @param {ECKey | string} key - Public Key either as an ECKey or a hex string
+     * @returns {boolean} - The result of the verification. Indicates whether the given signature matches the message.
+     * @remarks This method first checks whether the key is a string. If it is not then it will be converted to string
+     * using ECKey.exportKey(). This class supports only one algorithm which is curve secp256k1 recoverable method.
+     */
     ES256KRecoverableVerifier.prototype.verify = function (msg, signature, key) {
         var keyHexString;
         if (typeof key === 'string') {

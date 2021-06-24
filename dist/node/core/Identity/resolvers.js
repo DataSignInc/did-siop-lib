@@ -266,7 +266,7 @@ var UniversalDidResolver = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, axios.get('https://dev.uniresolver.io/1.0/identifiers/' + did)];
                     case 1:
                         returned = _a.sent();
-                        return [2 /*return*/, returned.data.didDocument];
+                        return [2 /*return*/, returned.data];
                 }
             });
         });
