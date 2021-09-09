@@ -65,7 +65,8 @@ var base58 = __importStar(require("bs58"));
 var multibase_1 = __importDefault(require("multibase"));
 var multicodec_1 = __importDefault(require("multicodec"));
 var ed2curve_1 = __importDefault(require("ed2curve"));
-var axios = require('axios').default;
+var did_resolver_1 = require("did-resolver");
+var web_did_resolver_1 = require("web-did-resolver");
 /**
  * @classdesc An abstract class which defines the interface for Resolver classes.
  * Resolvers are used to resolve the Decentralized Identity Document for a given DID.
@@ -260,13 +261,25 @@ var UniversalDidResolver = /** @class */ (function (_super) {
     }
     UniversalDidResolver.prototype.resolveDidDocumet = function (did) {
         return __awaiter(this, void 0, void 0, function () {
-            var returned;
+            var webResolver, resolver, returned;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, axios.get('https://dev.uniresolver.io/1.0/identifiers/' + did)];
+                    case 0:
+                        webResolver = web_did_resolver_1.getResolver();
+                        resolver = new did_resolver_1.Resolver(webResolver);
+                        return [4 /*yield*/, resolver.resolve(did)];
                     case 1:
                         returned = _a.sent();
-                        return [2 /*return*/, returned.data];
+                        if (returned === null || returned.didDocument === null) {
+                            throw new Error(commons_1.ERRORS.DOCUMENT_RESOLUTION_ERROR + (": " + did));
+                        }
+                        else if (returned.didDocument.authentication && returned.didDocument['@context']) {
+                            return [2 /*return*/, returned.didDocument];
+                        }
+                        else {
+                            throw new Error(commons_1.ERRORS.INVALID_DOCUMENT);
+                        }
+                        return [2 /*return*/];
                 }
             });
         });

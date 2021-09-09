@@ -5,7 +5,8 @@ import * as base58 from 'bs58';
 import multibase from "multibase";
 import multicodec from 'multicodec';
 import ed2curve from 'ed2curve';
-const axios = require('axios').default;
+import { Resolver } from 'did-resolver';
+import { getResolver as getWebResolver } from 'web-did-resolver';
 
 /**
  * @classdesc An abstract class which defines the interface for Resolver classes. 
@@ -172,8 +173,18 @@ class KeyDidResolver extends DidResolver{
  */
 class UniversalDidResolver extends DidResolver{
     async resolveDidDocumet(did: string): Promise<DidDocument>{
-        let returned = await axios.get('https://dev.uniresolver.io/1.0/identifiers/' + did);
-        return returned.data;
+
+        const webResolver = getWebResolver();
+        const resolver = new Resolver(webResolver);
+        let returned = await resolver.resolve(did);
+        if (returned === null || returned.didDocument === null) {
+            throw new Error(ERRORS.DOCUMENT_RESOLUTION_ERROR + `: ${did}`);
+        } else if (returned.didDocument.authentication && returned.didDocument['@context']){
+            return returned.didDocument as DidDocument;
+        } else {
+            throw new Error(ERRORS.INVALID_DOCUMENT);
+        }
+        
     }
 
     /**
