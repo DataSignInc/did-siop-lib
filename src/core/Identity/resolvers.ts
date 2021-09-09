@@ -1,12 +1,13 @@
 import { DidDocument } from "./commons";
 import { ERRORS } from "./commons";
-import { getResolver } from 'ethr-did-resolver';
 import * as base58 from 'bs58';
 import multibase from "multibase";
 import multicodec from 'multicodec';
 import ed2curve from 'ed2curve';
 import { Resolver } from 'did-resolver';
 import { getResolver as getWebResolver } from 'web-did-resolver';
+import { getResolver as getEthrResolver } from 'ethr-did-resolver';
+const axios = require('axios').default;
 
 /**
  * @classdesc An abstract class which defines the interface for Resolver classes. 
@@ -96,23 +97,6 @@ class CombinedDidResolver extends DidResolver{
 }
 
 /**
- * @classdesc Resolver class for Ethereum DIDs
- * @extends {DidResolver}
- */
-class EthrDidResolver extends DidResolver{
-    async resolveDidDocumet(did: string): Promise<DidDocument> {
-        const providerConfig = { rpcUrl: 'https://ropsten.infura.io/v3/e0a6ac9a2c4a4722970325c36b728415'};
-        let resolve = getResolver(providerConfig).ethr;
-        return await resolve(did, {
-            did,
-            method: 'ethr',
-            id: did.split(':')[2],
-            didUrl: did
-        });
-    }
-}
-
-/**
  * @classdesc Resolver class for DID-KEY DIDs. These DIDs are for test purposes only.
  * @extends {DidResolver}
  */
@@ -167,16 +151,22 @@ class KeyDidResolver extends DidResolver{
 }
 
 /**
- * @classdesc Resolver class which is based on the endpoint of https://dev.uniresolver.io/.
- * Can be used resolve Documents for any DID Method supported by the service.
+ * @classdesc Resolver class using official did-resolver library
  * @extends {DidResolver}
  */
-class UniversalDidResolver extends DidResolver{
-    async resolveDidDocumet(did: string): Promise<DidDocument>{
+class OfficialDidResolver extends DidResolver{
 
+    private resolver: Resolver;
+    constructor(dummyMethodName: string) {
+        super(dummyMethodName);
         const webResolver = getWebResolver();
-        const resolver = new Resolver(webResolver);
-        let returned = await resolver.resolve(did);
+        const ethrResolver = getEthrResolver({rpcUrl: 'https://ropsten.infura.io/v3/e0a6ac9a2c4a4722970325c36b728415'});
+        const resolver = new Resolver({...ethrResolver, ...webResolver});
+        this.resolver = resolver;
+
+    }
+    async resolveDidDocumet(did: string): Promise<DidDocument>{
+        let returned = await this.resolver.resolve(did);
         if (returned === null || returned.didDocument === null) {
             throw new Error(ERRORS.DOCUMENT_RESOLUTION_ERROR + `: ${did}`);
         } else if (returned.didDocument.authentication && returned.didDocument['@context']){
@@ -201,9 +191,35 @@ class UniversalDidResolver extends DidResolver{
 }
 
 /**
+ * @classdesc Resolver class which is based on the endpoint of https://dev.uniresolver.io/.
+ * Can be used resolve Documents for any DID Method supported by the service.
+ * @extends {DidResolver}
+ */
+ class UniversalDidResolver extends DidResolver{
+    async resolveDidDocumet(did: string): Promise<DidDocument>{
+        let returned = await axios.get('https://dev.uniresolver.io/1.0/identifiers/' + did);
+        return returned.data.didDocument;
+    }
+
+    /**
+     * 
+     * @param {string} did - DID to resolve the DID Document for.
+     * @returns A promise which resolves to a {DidDocument}
+     * @override resolve(did) method of the {DidResolver}
+     * @remarks Unlike other resolvers this class can resolve Documents for many DID Methods.
+     * Therefore the check in the parent class needs to be overridden.
+     */
+    resolve(did: string): Promise<DidDocument>{
+        return this.resolveDidDocumet(did);
+    }
+}
+
+
+/**
  * @exports CombinedDidResolver An instance of CombinedResolver which includes resolvers for currenlty implemented DID Methods.
  */
 export const combinedDidResolver = new CombinedDidResolver('all')
-    .addResolver(new EthrDidResolver('eth'))
+    // .addResolver(new EthrDidResolver('eth'))
     .addResolver(new KeyDidResolver('key'))
+    .addResolver(new OfficialDidResolver(''))
     .addResolver(new UniversalDidResolver('uniresolver'));
