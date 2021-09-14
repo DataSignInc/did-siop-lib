@@ -77,7 +77,7 @@ var multicodec_1 = __importDefault(require("multicodec"));
 var ed2curve_1 = __importDefault(require("ed2curve"));
 var did_resolver_1 = require("did-resolver");
 var web_did_resolver_1 = require("web-did-resolver");
-var ethr_did_resolver_1 = require("ethr-did-resolver");
+// import { getResolver as getEthrResolver } from 'ethr-did-resolver';
 var axios = require('axios').default;
 /**
  * @classdesc An abstract class which defines the interface for Resolver classes.
@@ -240,8 +240,8 @@ var OfficialDidResolver = /** @class */ (function (_super) {
     function OfficialDidResolver(dummyMethodName) {
         var _this = _super.call(this, dummyMethodName) || this;
         var webResolver = web_did_resolver_1.getResolver();
-        var ethrResolver = ethr_did_resolver_1.getResolver({ rpcUrl: 'https://ropsten.infura.io/v3/e0a6ac9a2c4a4722970325c36b728415' });
-        var resolver = new did_resolver_1.Resolver(__assign(__assign({}, ethrResolver), webResolver));
+        // const ethrResolver = getEthrResolver({rpcUrl: 'https://ropsten.infura.io/v3/e0a6ac9a2c4a4722970325c36b728415'});
+        var resolver = new did_resolver_1.Resolver(__assign({}, webResolver));
         _this.resolver = resolver;
         return _this;
     }
