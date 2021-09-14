@@ -6,7 +6,7 @@ import multicodec from 'multicodec';
 import ed2curve from 'ed2curve';
 import { Resolver } from 'did-resolver';
 import { getResolver as getWebResolver } from 'web-did-resolver';
-import { getResolver as getEthrResolver } from 'ethr-did-resolver';
+// import { getResolver as getEthrResolver } from 'ethr-did-resolver';
 const axios = require('axios').default;
 
 /**
@@ -160,8 +160,8 @@ class OfficialDidResolver extends DidResolver{
     constructor(dummyMethodName: string) {
         super(dummyMethodName);
         const webResolver = getWebResolver();
-        const ethrResolver = getEthrResolver({rpcUrl: 'https://ropsten.infura.io/v3/e0a6ac9a2c4a4722970325c36b728415'});
-        const resolver = new Resolver({...ethrResolver, ...webResolver});
+        // const ethrResolver = getEthrResolver({rpcUrl: 'https://ropsten.infura.io/v3/e0a6ac9a2c4a4722970325c36b728415'});
+        const resolver = new Resolver({...webResolver});
         this.resolver = resolver;
 
     }
